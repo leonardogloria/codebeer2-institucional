@@ -6,9 +6,24 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	usemin = require('gulp-usemin'),
 	cssmin = require('gulp-cssmin'),
-	cssStripComment = require('gulp-strip-css-comments');
+	cssStripComment = require('gulp-strip-css-comments'),
+	revAll = require('gulp-rev-all'),
+	awspublish = require('gulp-awspublish'),
+	cloudfront = require('gulp-cloudfront'),
+	browserSync = require('browser-sync');
 
 
+
+
+var headers = {'Cache-Control': 'max-age=315360000, no-transform, public'};
+gulp.task('serve',function(){
+	browserSync.init({
+		server: {
+			baseDir: 'src'
+		}
+	});
+	gulp.watch('src/**/*').on('change',browserSync.reload);
+})
 
 gulp.task('copy', ['clean'], function(){
 	return gulp.src('src/**/*')
@@ -21,27 +36,13 @@ gulp.task('clean',function(){
 });
 gulp.task('build-img', function(){
 
-gulp.src('dist/images/**/*')
+return gulp.src('dist/images/**/*')
 	.pipe(imagemin())
 	.pipe(gulp.dest('dist/images'))
 	
 });
 
-gulp.task('build-js',function(){
-	gulp.src(['dist/js/jquery.js','dist/js/bootstrap.min.js','dist/js/jquery.isotope.min.js',
-		'dist/js/lightbox.min.js','dist/js/wow.min.js','dist/js/jquery.countTo.js','dist/js/main.js'])
-	.pipe(concat('all.js'))
-	.pipe(uglify())
-	.pipe(gulp.dest('dist/js'))
-});
 
-gulp.task('build-html',function(){
-	gulp.src('dist/**/*.html')
-	.pipe(htmlReplace({
-		js: 'js/all.js'
-	}))
-	.pipe(gulp.dest('dist'))
-});
 gulp.task('usemin',function(){
 	
 	gulp.src('dist/**/*.html')
@@ -53,7 +54,57 @@ gulp.task('usemin',function(){
 		gulp.src('dist/css/*.css').pipe(cssStripComment()).pipe(gulp.dest('dist'))
 })
 
+gulp.task('publish',function(){
 
+	 var publisher = awspublish.create({
+	    params: {
+	      Bucket: 'codebeer2.com.br'
+	    },
+	    region: 'sa-east-1',
+	    accessKeyId: "xxx",
+  		secretAccessKey: "xxx",
+		signatureVersion: 'v3',
+		 distributionId: "xxx"
+
+
+	  });
+	 var aws = {
+	    params: {
+	      Bucket: 'codebeer2.com.br'
+	    },
+	    region: 'sa-east-1',
+	    accessKeyId: "xxx",
+  		secretAccessKey: "xxx",
+		signatureVersion: 'v3',
+		 distributionId: "xxx"
+
+
+	  };
+
+
+	   var headers = {
+    		'Cache-Control': 'max-age=315360000, no-transform, public'
+  
+  		};
+  		gulp.src(['dist/**/*'])
+  		.pipe(awspublish.gzip())
+  		.pipe(publisher.publish(headers))
+  		//.pipe(publisher.cache())
+  		.pipe(awspublish.reporter())
+        .pipe(cloudfront(aws));
+
+
+	 /*gulp.src('dist/**')
+        .pipe(revAll.revision())
+        .pipe(awspublish.gzip())
+        .pipe(publisher.publish(headers))
+        .pipe(publisher.cache())
+        .pipe(awspublish.reporter())
+        .pipe(cloudfront(aws));
+
+        */
+
+});
 gulp.task('default',['copy'],function(){
-	gulp.start('build-img','usemin')
+	gulp.start('build-img','usemin','publish')
 });
