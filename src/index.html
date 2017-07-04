@@ -16,6 +16,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Home | CodeBeer 2.0 </title>
+   
     <!-- build:css css/index.min.css -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -23,6 +24,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <link href="css/lightbox.css" rel="stylesheet"> 
 	<link href="css/main.css" rel="stylesheet">
 	<link href="css/responsive.css" rel="stylesheet">
+    <link href="css/jquery.fancybox.min.css" rel="stylesheet">
+
+
     <!-- endbuild -->
     <!--[if lt IE 9]>
 	    <script src="js/html5shiv.js"></script>
@@ -177,11 +181,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="row">
                 <div class="single-features">
                     <div class="col-sm-5 wow fadeInLeft" data-wow-duration="500ms" data-wow-delay="300ms">
-                      <a href="ortfolio-details-aws-microservicos.html" >  <img src="images/home/evento2-vitrine.png" class="img-responsive" alt=""> </a>
+                      <a href="aws-microservicos.html" >  <img src="images/home/evento2-vitrine.png" class="img-responsive" alt=""> </a>
                     </div>
                     <div class="col-sm-6 wow fadeInRight" data-wow-duration="500ms" data-wow-delay="300ms">
                         <h2><a href="portfolio-details-aws-microservicos.html" >Microserviços e AWS - 17/07/2017</a></h2>
-                        <P>Agora em Niterói, vamos trocar uma idéia sobre mudar a arquitetura de nossas aplicações monolíticas, pensando em Microserviços.E também continuaremos a falar sobre computação sem servidores com AWS! <br />  <a href='portfolio-details-aws-docker.html'><strong> Saiba mais</strong></a> </P><a target="_blank" href="https://codebeer.eventbrite.com" class="btn btn-common">Faça sua inscrição!</a>                 </div>
+                        <P>Agora em Niterói, vamos trocar uma idéia sobre mudar a arquitetura de nossas aplicações monolíticas, pensando em Microserviços.E também continuaremos a falar sobre computação sem servidores com AWS! <br />  <a href='aws-microservicos.html'><strong> Saiba mais</strong></a> </P><a target="_blank" href="https://goo.gl/aEU8we" class="btn btn-common">Faça sua inscrição!</a>                 </div>
                 </div>
             <div class="row">
                 <div class="single-features">
@@ -208,41 +212,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </section>
      <!--/#features-->
 
-<!--
-    <section id="clients">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="clients text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
-                        <p><img src="images/home/clients.png" class="img-responsive" alt=""></p>
-                        <h1 class="title">Happy Clients</h1>
-                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br> Ut enim ad minim veniam, quis nostrud </p>
-                    </div>
-                    <div class="clients-logo wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="col-xs-3 col-sm-2">
-                            <a href="#"><img src="images/home/client1.png" class="img-responsive" alt=""></a>
-                        </div>
-                        <div class="col-xs-3 col-sm-2">
-                            <a href="#"><img src="images/home/client2.png" class="img-responsive" alt=""></a>
-                        </div>
-                         <div class="col-xs-3 col-sm-2">
-                            <a href="#"><img src="images/home/client3.png" class="img-responsive" alt=""></a>
-                        </div>
-                         <div class="col-xs-3 col-sm-2">
-                            <a href="#"><img src="images/home/client4.png" class="img-responsive" alt=""></a>
-                        </div>
-                         <div class="col-xs-3 col-sm-2">
-                            <a href="#"><img src="images/home/client5.png" class="img-responsive" alt=""></a>
-                        </div>
-                         <div class="col-xs-3 col-sm-2">
-                            <a href="#"><img src="images/home/client6.png" class="img-responsive" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-     </section>
-    <!--/#clients-->
+
 
     <footer id="footer">
         <div class="container">
@@ -257,7 +227,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <div class="contact-info bottom">
                         <h2>Contacts</h2>
                         <address>
-                        E-mail: <a href="mailto:someone@example.com">contato@codebeer2.com</a> <br> 
+                        E-mail: <a href="mailto:codebeer2.0@gmail.com">codebeer2.0@gmail.com</a> <br> 
                         Phone: +1 (123) 555 0123 <br> 
                         
                         </address>
@@ -269,20 +239,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         London, NW1 6XE <br> 
                         United Kingdom <br> 
                         </address>
-                    </div>
-                </div>
+
+               
                 <div class="col-md-4 col-sm-12">
                     <div class="contact-form bottom">
                         <h2>Fale Conosco!</h2>
-                        <form id="main-contact-form" name="contact-form" method="post" action="sendemail.php">
+                        <form id="main-contact-form"  name="contact-form" >
                             <div class="form-group">
-                                <input type="text" name="name" class="form-control" required="required" placeholder="Qual seu nome?">
+                                <input type="text" id="nome" name="name" class="form-control" required="required" placeholder="Qual seu nome?">
                             </div>
                             <div class="form-group">
-                                <input type="email" name="email" class="form-control" required="required" placeholder="Qual seu email?">
+                                <input type="email" id="email" name="email" class="form-control" required="required" placeholder="Qual seu email?">
                             </div>
                             <div class="form-group">
-                                <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Mande sua mensagem!"></textarea>
+                                <textarea name="message" id="mensagem" required="required" class="form-control" rows="8" placeholder="Mande sua mensagem!"></textarea>
                             </div>                        
                             <div class="form-group">
                                 <input type="submit" name="submit" class="btn btn-submit" value="Submit">
@@ -290,6 +260,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </form>
                     </div>
                 </div>
+                
                 <div class="col-sm-12">
                     <div class="copyright-text text-center">
                         <p>&copy; CodeBeer2.0 . All Rights Reserved.</p>
@@ -303,8 +274,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
     <!-- build:js  js/index.min.js -->
     <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/sendMail.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/lightbox.min.js"></script>
+    <script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
     <script type="text/javascript" src="js/wow.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>   
 </body>
