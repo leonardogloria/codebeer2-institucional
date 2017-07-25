@@ -12,8 +12,33 @@ var gulp = require('gulp')
 	,cloudfront = require('gulp-cloudfront')
 	,browserSync = require('browser-sync')
 	,fs = require("fs")
-	,stripComment = require('gulp-strip-comments');
+	,stripComment = require('gulp-strip-comments')
+	,cloudfront = require('gulp-cloudfront-invalidate-aws-publish')
+	,cdnizer = require("gulp-cdnizer");
 
+
+gulp.task('cdnizer-css',function(){
+	gulp.src("./src/css/main.css")
+        .pipe(cdnizer({
+            defaultCDNBase: 'http://static.codebeer.tech/',
+            relativeRoot: 'css',
+            files: ['**/*.{gif,png,jpg,jpeg}']
+        }))
+        .pipe(gulp.dest("./dist/css/"));
+});
+gulp.task('cdnizer-html',function(){
+	gulp.src("./src/index.html")
+        .pipe(cdnizer({
+            defaultCDNBase: 'http://static.codebeer.tech/',
+            relativeRoot: '',
+            files: ['**/*.{gif,png,jpg,jpeg}']
+        }))
+        .pipe(gulp.dest("./dist/"));
+});
+
+gulp.task('cdnizer-all',['strip-js'],function(){
+	gulp.start('cdnizer-html','cdnizer-css')
+});
 
 
 gulp.task('serve',function(){
@@ -23,7 +48,7 @@ gulp.task('serve',function(){
 		}
 	});
 	gulp.watch('src/**/*').on('change',browserSync.reload);
-})
+});
 
 gulp.task('copy', ['clean'], function(){
 	return gulp.src('src/**/*')
@@ -67,6 +92,9 @@ gulp.task('usemin',function(){
 		
 })
 
+
+
+
 gulp.task('deploy',['build-img'],function(){
 	var headers = {'Cache-Control': 'max-age=315360000, no-transform, public'};
 	var contents = fs.readFileSync("aws-credentials.json");
@@ -98,12 +126,14 @@ gulp.task('deploy',['build-img'],function(){
         .pipe(cloudfront(aws));
 
 });
+
+
 gulp.task('default',['copy'],function(){
-	gulp.start('build-img','usemin','strip-html','strip-css','strip-js')
+	gulp.start('build-img','usemin','strip-html','strip-css','strip-js','cdnizer-all')
 });
 
 gulp.task('default-prod',['copy'],function(){
-	gulp.start('build-img','usemin','strip-html','strip-css','strip-js','deploy')
+	gulp.start('build-img','usemin','strip-html','strip-css','strip-js','cdnizer-all','deploy')
 });
 
 

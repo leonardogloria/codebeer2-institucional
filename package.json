@@ -12,7 +12,11 @@
   "devDependencies": {
     "browser-sync": "^2.9.8",
     "gulp": "^3.9.0",
+    "gulp-assetpaths": "^0.3.0",
     "gulp-awspublish": "^3.3.0",
+    "gulp-cdn-ref": "^0.4.1",
+    "gulp-cdn-replace": "^0.6.0",
+    "gulp-cdnizer": "^1.1.7",
     "gulp-clean": "^0.3.1",
     "gulp-cloudfront": "0.0.14",
     "gulp-concat": "^2.6.0",
@@ -24,6 +28,10 @@
     "gulp-strip-css-comments": "^1.2.0",
     "gulp-uglify": "^1.4.1",
     "gulp-usemin": "^0.3.14",
+    "jquery-lazyload": "^1.9.7"
+  },
+  "dependencies": {
+    "gulp-cloudfront-invalidate": "^0.1.4",
     "jquery-lazyload": "^1.9.7"
   }
 }

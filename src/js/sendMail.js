@@ -1,5 +1,9 @@
 
 $(function() {
+
+	$("img.lazy").lazyload();
+
+
 	var form = $('#main-contact-form');
    form.submit(function(e){
         e.preventDefault(e);
